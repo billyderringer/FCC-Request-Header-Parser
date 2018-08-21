@@ -24,6 +24,17 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+//header parser
+app.get("/api/whoami", function (req, res) {
+    let ip = req.socket.localAddress.split('').map(char => {
+        if(!isNaN(char) || char === ".")return char
+    }).join('')
+
+    res.json({
+        ipaddress: ip,
+        language: req.headers["accept-language"],
+        software: req.headers["user-agent"]})
+})
 
 
 // listen for requests :)
